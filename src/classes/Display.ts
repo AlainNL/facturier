@@ -1,5 +1,6 @@
 import { HasHtmlFormat } from "./interfaces/HasHtmlFormat.js";
 import { HasRender } from "./interfaces/HasRender.js";
+import { Storage } from "./Storage.js";
 
 export class Display implements HasRender {
 
@@ -19,6 +20,9 @@ export class Display implements HasRender {
     render(docObj: HasHtmlFormat, docType: string) {
         const htmlString: string = docObj.htmlFormat();
         this.container.innerHTML = htmlString;
+
+        new Storage(docType, htmlString);
+
         if (docType === "invoice") {
             this.BtnPrint.innerText = 'Imprimer la facture';
         } else {
@@ -26,6 +30,5 @@ export class Display implements HasRender {
         }
         this.hiddenDiv.classList.remove('invisible');
         this.formContainer.innerHTML = "";
-
     }
 }
