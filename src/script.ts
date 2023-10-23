@@ -1,3 +1,2 @@
-import { FormInput } from "./classes/FormInput";
-
+import { FormInput } from "./classes/FormInputs.js";
 new FormInput();
