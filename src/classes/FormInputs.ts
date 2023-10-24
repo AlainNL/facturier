@@ -4,6 +4,7 @@ import { Print } from "./Print.js";
 import { HasHtmlFormat } from "./interfaces/HasHtmlFormat";
 import { HasPrint } from "./interfaces/HasPrint.js";
 import { HasRender } from "./interfaces/HasRender.js";
+import { bind } from "../decorators/Bind.js";
 
 
 export class FormInput {
@@ -45,7 +46,7 @@ export class FormInput {
 
       this.docContainer = document.getElementById('document-container') as HTMLDivElement;
       this.hiddenDiv = document.getElementById('hiddenDiv') as HTMLDivElement;
-      this.storedEl = document.getElementById('stored-data') as HTMLDivElement;
+      this.storedEl =  document.getElementById('stored-data') as HTMLDivElement;
 
       this.btnPrint = document.getElementById('print') as HTMLButtonElement;
       this.btnReload = document.getElementById('reload') as HTMLButtonElement;
@@ -61,7 +62,7 @@ export class FormInput {
 
   // Listeners
   private submitFormListener(): void {
-      this.form.addEventListener('submit', this.handleFormSubmit.bind(this));
+      this.form.addEventListener('submit', this.handleFormSubmit);
   }
 
   private printListener(btn: HTMLButtonElement, docContainer: HTMLDivElement) {
@@ -80,8 +81,8 @@ export class FormInput {
   }
 
   private getStoredDocsListner(): void {
-      this.btnStoredInvoices.addEventListener("click", this.getItems.bind(this, 'invoice'));
-      this.btnStoredEstimates.addEventListener("click", this.getItems.bind(this, 'estimate'));
+      this.btnStoredInvoices.addEventListener("click", () => this.getItems('invoice'));
+      this.btnStoredEstimates.addEventListener("click",() => this.getItems('estimate'));
   }
 
   private getItems(docType: string) {
@@ -115,7 +116,7 @@ export class FormInput {
       }
   }
 
-
+  @bind
   private handleFormSubmit(e: Event) {
       e.preventDefault();
 
